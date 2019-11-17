@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class MessageHandler {
     
-    public static final String SYSTEM_SENDER = "绯荤粺鎻愮ず";
+    public static final String SYSTEM_SENDER = "系统提示";
     abstract public void handle(Message message, Selector server, SelectionKey client, BlockingQueue<Task> queue, AtomicInteger onlineUsers) throws InterruptedException;
     
     protected void broadcast(byte[] data, Selector server) throws IOException {

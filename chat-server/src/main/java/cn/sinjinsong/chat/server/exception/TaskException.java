@@ -10,7 +10,7 @@ import lombok.Data;
 public class TaskException extends RuntimeException{
     private Task info;
     public TaskException(Task info){
-        super(info.getDesc()+"ä»»åŠ¡æ‰§è¡Œå¤±è´¥");
+        super(info.getDesc()+"ÈÎÎñÖ´ÐÐÊ§°Ü");
         this.info = info;
     }
 }

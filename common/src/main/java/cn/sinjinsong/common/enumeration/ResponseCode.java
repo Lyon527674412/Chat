@@ -7,9 +7,9 @@ import java.util.Map;
  * Created by SinjinSong on 2017/5/23.
  */
 public enum ResponseCode {
-    LOGIN_SUCCESS(1,"鐧诲綍鎴愬姛"),
-    LOGIN_FAILURE(2,"鐧诲綍澶辫触"),
-    LOGOUT_SUCCESS(3,"涓嬬嚎鎴愬姛");
+    LOGIN_SUCCESS(1,"登录成功"),
+    LOGIN_FAILURE(2,"登录失败"),
+    LOGOUT_SUCCESS(3,"下线成功");
     
     private int code;
     private String desc;

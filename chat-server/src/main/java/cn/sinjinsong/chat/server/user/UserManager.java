@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserManager {
     private Map<String, User> users;
     /**
-     * keyæ˜¯ipå’Œç«¯å£å·ï¼Œvalueæ˜¯ç”¨æˆ·å
+     * keyÊÇipºÍ¶Ë¿ÚºÅ£¬valueÊÇÓÃ»§Ãû
      */
     private Map<SocketChannel, String> onlineUsers;
   
@@ -40,8 +40,8 @@ public class UserManager {
             return false;
         }
         if(user.getChannel() != null){
-            log.info("é‡å¤ç™»å½•ï¼Œæ‹’ç»");
-            //é‡å¤ç™»å½•ä¼šæ‹’ç»ç¬¬äºŒæ¬¡ç™»å½•
+            log.info("ÖØ¸´µÇÂ¼£¬¾Ü¾ø");
+            //ÖØ¸´µÇÂ¼»á¾Ü¾øµÚ¶ş´ÎµÇÂ¼
             return false;
         }
         user.setChannel(channel);
@@ -51,7 +51,7 @@ public class UserManager {
     
     public synchronized void logout(SocketChannel channel) {
         String username = onlineUsers.get(channel);
-        log.info("{}ä¸‹çº¿",username);
+        log.info("{}ÏÂÏß",username);
         users.get(username).setChannel(null);
         onlineUsers.remove(channel);
     }

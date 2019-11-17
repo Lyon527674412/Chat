@@ -15,7 +15,7 @@ public final class SpringContextUtil {
     private SpringContextUtil() {
     }
 
-    // Springåº”ç”¨ä¸Šä¸‹æ–‡ç¯å¢ƒ  
+    // SpringÓ¦ÓÃÉÏÏÂÎÄ»·¾³  
     private static ApplicationContext applicationContext;
 
     static {
@@ -29,7 +29,7 @@ public final class SpringContextUtil {
                 bean = (T) applicationContext.getBean(beanId);
             }
         } catch (NoSuchBeanDefinitionException e) {
-            log.error("è·å–beanå¤±è´¥");
+            log.error("»ñÈ¡beanÊ§°Ü");
             return null;
         }
         return bean;

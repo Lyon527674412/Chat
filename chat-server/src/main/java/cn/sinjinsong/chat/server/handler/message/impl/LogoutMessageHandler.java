@@ -45,7 +45,7 @@ public class LogoutMessageHandler extends MessageHandler {
                             PromptMsgProperty.LOGOUT_SUCCESS.getBytes(PromptMsgProperty.charset)));
             clientChannel.write(ByteBuffer.wrap(response));
             onlineUsers.decrementAndGet();
-            //ä¸‹çº¿å¹¿æ’­
+            //ÏÂÏß¹ã²¥
             byte[] logoutBroadcast = ProtoStuffUtil.serialize(
                     new Response(
                             ResponseHeader.builder()
@@ -54,8 +54,8 @@ public class LogoutMessageHandler extends MessageHandler {
                                     .timestamp(message.getHeader().getTimestamp()).build(),
                             String.format(PromptMsgProperty.LOGOUT_BROADCAST, message.getHeader().getSender()).getBytes(PromptMsgProperty.charset)));
             super.broadcast(logoutBroadcast, server);
-            log.info("å®¢æˆ·ç«¯é€€å‡º");
-            //å¿…é¡»è¦cancelï¼Œå¦åˆ™æ— æ³•ä»keysä»å»é™¤è¯¥å®¢æˆ·ç«¯
+            log.info("¿Í»§¶ËÍË³ö");
+            //±ØĞëÒªcancel£¬·ñÔòÎŞ·¨´Ókeys´ÓÈ¥³ı¸Ã¿Í»§¶Ë
             client.cancel();
             clientChannel.close();
             clientChannel.socket().close();

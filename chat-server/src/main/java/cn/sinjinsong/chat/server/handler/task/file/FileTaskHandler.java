@@ -30,7 +30,7 @@ public class FileTaskHandler extends BaseTaskHandler {
         if (!manager.copyStream(info.getDesc(), baos)) {
             throw new TaskException(info);
         }
-        log.info("ä¸‹è½½å›¾ç‰‡æˆåŠŸ");
+        log.info("ÏÂÔØÍ¼Æ¬³É¹¦");
         byte[] bytes = baos.toByteArray();
         baos.close();
         return new Response(ResponseHeader.builder()
@@ -43,7 +43,7 @@ public class FileTaskHandler extends BaseTaskHandler {
 
     @Override
     protected void init(TaskManagerThread parentThread) {
-        //ä¸éœ€è¦å…¶ä»–æ•°æ®
+        //²»ĞèÒªÆäËûÊı¾İ
     }
 
 

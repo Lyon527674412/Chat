@@ -12,8 +12,8 @@ import java.util.concurrent.*;
 
 /**
  * Created by SinjinSong on 2017/5/23.
- * æ¶ˆè´¹è€…
- * è´Ÿè´£ä»é˜»å¡é˜Ÿåˆ—ä¸­å–å‡ºä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
+ * Ïû·ÑÕß
+ * ¸ºÔğ´Ó×èÈû¶ÓÁĞÖĞÈ¡³öÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
  */
 @Slf4j
 public class TaskManagerThread extends Thread {
@@ -45,10 +45,10 @@ public class TaskManagerThread extends Thread {
     }
 
     /**
-     * å¦‚æœå½“å‰çº¿ç¨‹è¢«ä¸­æ–­ï¼Œé‚£ä¹ˆFutureä¼šæŠ›å‡ºInterruptedExceptionï¼Œ
-     * æ­¤æ—¶å¯ä»¥é€šè¿‡future.cancel(true)æ¥ä¸­æ–­å½“å‰çº¿ç¨‹
+     * Èç¹ûµ±Ç°Ïß³Ì±»ÖĞ¶Ï£¬ÄÇÃ´Future»áÅ×³öInterruptedException£¬
+     * ´ËÊ±¿ÉÒÔÍ¨¹ıfuture.cancel(true)À´ÖĞ¶Ïµ±Ç°Ïß³Ì
      * <p>
-     * ç”±submitæ–¹æ³•æäº¤çš„ä»»åŠ¡ä¸­å¦‚æœæŠ›å‡ºäº†å¼‚å¸¸ï¼Œé‚£ä¹ˆä¼šåœ¨ExecutionExceptionä¸­é‡æ–°æŠ›å‡º
+     * ÓÉsubmit·½·¨Ìá½»µÄÈÎÎñÖĞÈç¹ûÅ×³öÁËÒì³££¬ÄÇÃ´»áÔÚExecutionExceptionÖĞÖØĞÂÅ×³ö
      */
     @Override
     public void run() {
@@ -56,14 +56,14 @@ public class TaskManagerThread extends Thread {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 task = taskBlockingQueue.take();
-                log.info("{}å·²ä»é˜»å¡é˜Ÿåˆ—ä¸­å–å‡º",task.getReceiver().getRemoteAddress());
+                log.info("{}ÒÑ´Ó×èÈû¶ÓÁĞÖĞÈ¡³ö",task.getReceiver().getRemoteAddress());
                 BaseTaskHandler taskHandler = SpringContextUtil.getBean("BaseTaskHandler", task.getType().toString().toLowerCase());
                 taskHandler.init(task,httpConnectionManager,this);
                 System.out.println(taskHandler);
                 taskPool.execute(taskHandler);
             }
         } catch (InterruptedException e) {
-            //è¿™é‡Œä¹Ÿæ— æ³•å¾—çŸ¥å‘æ¥æ¶ˆæ¯çš„æ˜¯è°ï¼Œæ‰€ä»¥åªèƒ½ç›´æ¥é€€å‡ºäº†
+            //ÕâÀïÒ²ÎŞ·¨µÃÖª·¢À´ÏûÏ¢µÄÊÇË­£¬ËùÒÔÖ»ÄÜÖ±½ÓÍË³öÁË
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

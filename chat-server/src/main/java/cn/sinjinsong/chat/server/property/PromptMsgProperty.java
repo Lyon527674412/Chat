@@ -7,13 +7,13 @@ import java.nio.charset.StandardCharsets;
  * Created by SinjinSong on 2017/5/24.
  */
 public class PromptMsgProperty {
-    public static final String LOGIN_SUCCESS = "ç™»å½•æˆåŠŸï¼Œå½“å‰å…±æœ‰%dä½åœ¨çº¿ç”¨æˆ·";
-    public static final String LOGIN_FAILURE = "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯æˆ–é‡å¤ç™»å½•ï¼Œç™»å½•å¤±è´¥";
-    public static final String LOGOUT_SUCCESS = "æ³¨é”€æˆåŠŸ";
-    public static final String RECEIVER_LOGGED_OFF = "æ¥æ”¶è€…ä¸å­˜åœ¨æˆ–å·²ä¸‹çº¿";
-    public static final String TASK_FAILURE = "ä»»åŠ¡æ‰§è¡Œå¤±è´¥ï¼Œè¯·é‡è¯•";
-    public static final String LOGIN_BROADCAST = "%sç”¨æˆ·å·²ä¸Šçº¿";
-    public static final String LOGOUT_BROADCAST = "%sç”¨æˆ·å·²ä¸‹çº¿";
-    public static final String SERVER_ERROR = "æœåŠ¡å™¨å†…éƒ¨å‡ºç°é”™è¯¯ï¼Œè¯·é‡è¯•";
+    public static final String LOGIN_SUCCESS = "µÇÂ¼³É¹¦£¬µ±Ç°¹²ÓĞ%dÎ»ÔÚÏßÓÃ»§";
+    public static final String LOGIN_FAILURE = "ÓÃ»§Ãû»òÃÜÂë´íÎó»òÖØ¸´µÇÂ¼£¬µÇÂ¼Ê§°Ü";
+    public static final String LOGOUT_SUCCESS = "×¢Ïú³É¹¦";
+    public static final String RECEIVER_LOGGED_OFF = "½ÓÊÕÕß²»´æÔÚ»òÒÑÏÂÏß";
+    public static final String TASK_FAILURE = "ÈÎÎñÖ´ĞĞÊ§°Ü£¬ÇëÖØÊÔ";
+    public static final String LOGIN_BROADCAST = "%sÓÃ»§ÒÑÉÏÏß";
+    public static final String LOGOUT_BROADCAST = "%sÓÃ»§ÒÑÏÂÏß";
+    public static final String SERVER_ERROR = "·şÎñÆ÷ÄÚ²¿³öÏÖ´íÎó£¬ÇëÖØÊÔ";
     public static final Charset charset = StandardCharsets.UTF_8;
 }

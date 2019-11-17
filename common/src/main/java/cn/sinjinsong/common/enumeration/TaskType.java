@@ -4,8 +4,8 @@ package cn.sinjinsong.common.enumeration;
  * Created by SinjinSong on 2017/5/25.
  */
 public enum TaskType {
-    FILE(1,"æ–‡ä»¶"),
-    CRAWL_IMAGE(2,"è±†ç“£ç”µå½±å›¾ç‰‡");
+    FILE(1,"ÎÄ¼þ"),
+    CRAWL_IMAGE(2,"¶¹°êµçÓ°Í¼Æ¬");
     private int code;
     private String desc;
 

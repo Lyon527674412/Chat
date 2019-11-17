@@ -29,10 +29,10 @@ public class CrawlImageTaskHandler extends BaseTaskHandler {
     private ExecutorService crawlerPool;
 
     /**
-     * å½“å‘Executoræäº¤æ‰¹å¤„ç†ä»»åŠ¡æ—¶ï¼Œå¹¶ä¸”å¸Œæœ›åœ¨å®ƒä»¬å®Œæˆåè·å¾—ç»“æœï¼Œå¦‚æœç”¨FutureTaskï¼Œ
-     * ä½ å¯ä»¥å¾ªç¯è·å–taskï¼Œå¹¶ç”¨future.get()å»è·å–ç»“æœï¼Œä½†æ˜¯å¦‚æœè¿™ä¸ªtaskæ²¡æœ‰å®Œæˆï¼Œä½ å°±å¾—é˜»å¡åœ¨è¿™é‡Œï¼Œ
-     * è¿™ä¸ªå®æ•ˆæ€§ä¸é«˜ï¼Œå…¶å®åœ¨å¾ˆå¤šåœºåˆï¼Œå…¶å®ä½ æ‹¿ç¬¬ä¸€ä¸ªä»»åŠ¡ç»“æœæ—¶ï¼Œæ­¤æ—¶ç»“æœå¹¶æ²¡æœ‰ç”Ÿæˆå¹¶é˜»å¡ï¼Œ
-     * å…¶å®åœ¨é˜»å¡åœ¨ç¬¬ä¸€ä¸ªä»»åŠ¡æ—¶ï¼Œç¬¬äºŒä¸ªtaskçš„ä»»åŠ¡å·²ç»æ—©å°±å®Œæˆäº†ï¼Œæ˜¾ç„¶è¿™ç§æƒ…å†µç”¨future taskä¸åˆé€‚çš„ï¼Œæ•ˆç‡ä¹Ÿä¸é«˜ã€‚
+     * µ±ÏòExecutorÌá½»Åú´¦ÀíÈÎÎñÊ±£¬²¢ÇÒÏ£ÍûÔÚËüÃÇÍê³Éºó»ñµÃ½á¹û£¬Èç¹ûÓÃFutureTask£¬
+     * Äã¿ÉÒÔÑ­»·»ñÈ¡task£¬²¢ÓÃfuture.get()È¥»ñÈ¡½á¹û£¬µ«ÊÇÈç¹ûÕâ¸ötaskÃ»ÓĞÍê³É£¬Äã¾ÍµÃ×èÈûÔÚÕâÀï£¬
+     * Õâ¸öÊµĞ§ĞÔ²»¸ß£¬ÆäÊµÔÚºÜ¶à³¡ºÏ£¬ÆäÊµÄãÄÃµÚÒ»¸öÈÎÎñ½á¹ûÊ±£¬´ËÊ±½á¹û²¢Ã»ÓĞÉú³É²¢×èÈû£¬
+     * ÆäÊµÔÚ×èÈûÔÚµÚÒ»¸öÈÎÎñÊ±£¬µÚ¶ş¸ötaskµÄÈÎÎñÒÑ¾­Ôç¾ÍÍê³ÉÁË£¬ÏÔÈ»ÕâÖÖÇé¿öÓÃfuture task²»ºÏÊÊµÄ£¬Ğ§ÂÊÒ²²»¸ß¡£
      *
      * @return
      * @throws IOException
@@ -49,12 +49,12 @@ public class CrawlImageTaskHandler extends BaseTaskHandler {
             suffix = urls.get(0).substring(urls.get(0).lastIndexOf('.') + 1);
         }
         CompletionService<byte[]> completionService = new ExecutorCompletionService<>(crawlerPool);
-        //å…ˆæäº¤ä»»åŠ¡
+        //ÏÈÌá½»ÈÎÎñ
         for (String url : urls) {
             completionService.submit(new ImageThread(url, manager));
         }
         List<byte[]> result = new ArrayList<>();
-        //å–å‡ºå®Œæˆäº†çš„ä»»åŠ¡ç»“æœ
+        //È¡³öÍê³ÉÁËµÄÈÎÎñ½á¹û
         byte[] image;
         for (int i = 0; i < urls.size(); i++) {
             Future<byte[]> future = completionService.take();
@@ -62,8 +62,8 @@ public class CrawlImageTaskHandler extends BaseTaskHandler {
                 image = future.get();
                 result.add(image);
             } catch (ExecutionException e) {
-                //å³ä½¿æœ‰ä¸‹è½½ä»»åŠ¡å¤±è´¥ï¼Œä¹Ÿä¸å½±å“ï¼Œç»§ç»­ä¸‹è½½
-                log.info("æœ‰å›¾ç‰‡ä¸‹è½½å¤±è´¥");
+                //¼´Ê¹ÓĞÏÂÔØÈÎÎñÊ§°Ü£¬Ò²²»Ó°Ïì£¬¼ÌĞøÏÂÔØ
+                log.info("ÓĞÍ¼Æ¬ÏÂÔØÊ§°Ü");
             }
         }
         result.forEach((bytes) -> System.out.println(bytes.length));

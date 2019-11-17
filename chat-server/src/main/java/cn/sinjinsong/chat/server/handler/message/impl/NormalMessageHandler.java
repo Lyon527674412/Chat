@@ -34,7 +34,7 @@ public class NormalMessageHandler extends MessageHandler {
             MessageHeader header = message.getHeader();
             SocketChannel receiverChannel = userManager.getUserChannel(header.getReceiver());
             if (receiverChannel == null) {
-                //æ¥æ”¶è€…ä¸‹çº¿
+                //½ÓÊÕÕßÏÂÏß
                 byte[] response = ProtoStuffUtil.serialize(
                         new Response(
                                 ResponseHeader.builder()
@@ -53,9 +53,9 @@ public class NormalMessageHandler extends MessageHandler {
                                         .timestamp(message.getHeader().getTimestamp())
                                         .build(),
                                 message.getBody()));
-                log.info("å·²è½¬å‘ç»™",receiverChannel);
+                log.info("ÒÑ×ª·¢¸ø",receiverChannel);
                 receiverChannel.write(ByteBuffer.wrap(response));
-                //ä¹Ÿç»™è‡ªå·±å‘é€ä¸€ä»½
+                //Ò²¸ø×Ô¼º·¢ËÍÒ»·İ
                 clientChannel.write(ByteBuffer.wrap(response));
             }
         } catch (IOException e) {

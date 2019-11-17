@@ -43,10 +43,10 @@ public class LoginMessageHandler extends MessageHandler {
                                         .responseCode(ResponseCode.LOGIN_SUCCESS.getCode()).build(),
                                 String.format(PromptMsgProperty.LOGIN_SUCCESS,onlineUsers.incrementAndGet()).getBytes(PromptMsgProperty.charset)));
                 clientChannel.write(ByteBuffer.wrap(response));
-                //è¿ç»­å‘é€ä¿¡æ¯ä¸å¯è¡Œ,å¿…é¡»è¦æš‚æ—¶ä¸­æ–­ä¸€ä¸‹
-                //ç²˜åŒ…é—®é¢˜
+                //Á¬Ğø·¢ËÍĞÅÏ¢²»¿ÉĞĞ,±ØĞëÒªÔİÊ±ÖĞ¶ÏÒ»ÏÂ
+                //Õ³°üÎÊÌâ
                 Thread.sleep(10);
-                //ç™»å½•æç¤ºå¹¿æ’­
+                //µÇÂ¼ÌáÊ¾¹ã²¥
                 byte[] loginBroadcast = ProtoStuffUtil.serialize(
                         new Response(
                                 ResponseHeader.builder()

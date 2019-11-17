@@ -27,8 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 /**
- * @Slf4jä¼šä¸ºå½“å‰ç±»ç”Ÿæˆä¸€ä¸ªåä¸ºlogçš„æ—¥å¿—å¯¹è±¡
- * Slf4jå¯ä»¥åœ¨æ‰“å°çš„å­—ç¬¦ä¸²ä¸­æ·»åŠ å ä½ç¬¦ï¼Œä»¥é¿å…å­—ç¬¦ä¸²çš„æ‹¼æ¥
+ * @Slf4j»áÎªµ±Ç°ÀàÉú³ÉÒ»¸öÃûÎªlogµÄÈÕÖ¾¶ÔÏó
+ * Slf4j¿ÉÒÔÔÚ´òÓ¡µÄ×Ö·û´®ÖĞÌí¼ÓÕ¼Î»·û£¬ÒÔ±ÜÃâ×Ö·û´®µÄÆ´½Ó
  */
 @Slf4j
 public class ChatServer {
@@ -47,22 +47,22 @@ public class ChatServer {
     private ListenerThread listenerThread;
     private InterruptedExceptionHandler exceptionHandler;
     public ChatServer() {
-        log.info("æœåŠ¡å™¨å¯åŠ¨");
+        log.info("·şÎñÆ÷Æô¶¯");
         initServer();
     }
 
     private void initServer() {
         try {
             serverSocketChannel = ServerSocketChannel.open();
-            //åˆ‡æ¢ä¸ºéé˜»å¡æ¨¡å¼
+            //ÇĞ»»Îª·Ç×èÈûÄ£Ê½
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.bind(new InetSocketAddress(PORT));
-            //è·å¾—é€‰æ‹©å™¨
+            //»ñµÃÑ¡ÔñÆ÷
             selector = Selector.open();
-            //å°†channelæ³¨å†Œåˆ°selectorä¸Š
-            //ç¬¬äºŒä¸ªå‚æ•°æ˜¯é€‰æ‹©é”®ï¼Œç”¨äºè¯´æ˜selectorç›‘æ§channelçš„çŠ¶æ€
-            //å¯èƒ½çš„å–å€¼ï¼šSelectionKey.OP_READ OP_WRITE OP_CONNECT OP_ACCEPT
-            //ç›‘æ§çš„æ˜¯channelçš„æ¥æ”¶çŠ¶æ€
+            //½«channel×¢²áµ½selectorÉÏ
+            //µÚ¶ş¸ö²ÎÊıÊÇÑ¡Ôñ¼ü£¬ÓÃÓÚËµÃ÷selector¼à¿ØchannelµÄ×´Ì¬
+            //¿ÉÄÜµÄÈ¡Öµ£ºSelectionKey.OP_READ OP_WRITE OP_CONNECT OP_ACCEPT
+            //¼à¿ØµÄÊÇchannelµÄ½ÓÊÕ×´Ì¬
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
             this.readPool = new ThreadPoolExecutor(5, 10, 1000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(10), new ThreadPoolExecutor.CallerRunsPolicy());
             this.downloadTaskQueue = new ArrayBlockingQueue<>(20);
@@ -77,8 +77,8 @@ public class ChatServer {
     }
 
     /**
-     * å¯åŠ¨æ–¹æ³•ï¼Œçº¿ç¨‹æœ€å¥½ä¸è¦åœ¨æ„é€ å‡½æ•°ä¸­å¯åŠ¨ï¼Œåº”è¯¥ä½œä¸ºä¸€ä¸ªå•ç‹¬æ–¹æ³•ï¼Œæˆ–è€…ä½¿ç”¨å·¥å‚æ–¹æ³•æ¥åˆ›å»ºå®ä¾‹
-     * é¿å…æ„é€ æœªå®Œæˆå°±ä½¿ç”¨æˆå‘˜å˜é‡
+     * Æô¶¯·½·¨£¬Ïß³Ì×îºÃ²»ÒªÔÚ¹¹Ôìº¯ÊıÖĞÆô¶¯£¬Ó¦¸Ã×÷ÎªÒ»¸öµ¥¶À·½·¨£¬»òÕßÊ¹ÓÃ¹¤³§·½·¨À´´´½¨ÊµÀı
+     * ±ÜÃâ¹¹ÔìÎ´Íê³É¾ÍÊ¹ÓÃ³ÉÔ±±äÁ¿
      */
     public void launch() {
         new Thread(listenerThread).start();
@@ -86,11 +86,11 @@ public class ChatServer {
     }
 
     /**
-     * æ¨èçš„ç»“æŸçº¿ç¨‹çš„æ–¹å¼æ˜¯ä½¿ç”¨ä¸­æ–­
-     * åœ¨whileå¾ªç¯å¼€å§‹å¤„æ£€æŸ¥æ˜¯å¦ä¸­æ–­ï¼Œå¹¶æä¾›ä¸€ä¸ªæ–¹æ³•æ¥å°†è‡ªå·±ä¸­æ–­
-     * ä¸è¦åœ¨å¤–éƒ¨å°†çº¿ç¨‹ä¸­æ–­
+     * ÍÆ¼öµÄ½áÊøÏß³ÌµÄ·½Ê½ÊÇÊ¹ÓÃÖĞ¶Ï
+     * ÔÚwhileÑ­»·¿ªÊ¼´¦¼ì²éÊÇ·ñÖĞ¶Ï£¬²¢Ìá¹©Ò»¸ö·½·¨À´½«×Ô¼ºÖĞ¶Ï
+     * ²»ÒªÔÚÍâ²¿½«Ïß³ÌÖĞ¶Ï
      * <p>
-     * å¦å¤–ï¼Œå¦‚æœè¦ä¸­æ–­ä¸€ä¸ªé˜»å¡åœ¨æŸä¸ªåœ°æ–¹çš„çº¿ç¨‹ï¼Œæœ€å¥½æ˜¯ç»§æ‰¿è‡ªThreadï¼Œå…ˆå…³é—­æ‰€ä¾èµ–çš„èµ„æºï¼Œå†å…³é—­å½“å‰çº¿ç¨‹
+     * ÁíÍâ£¬Èç¹ûÒªÖĞ¶ÏÒ»¸ö×èÈûÔÚÄ³¸öµØ·½µÄÏß³Ì£¬×îºÃÊÇ¼Ì³Ğ×ÔThread£¬ÏÈ¹Ø±ÕËùÒÀÀµµÄ×ÊÔ´£¬ÔÙ¹Ø±Õµ±Ç°Ïß³Ì
      */
     private class ListenerThread extends Thread {
 
@@ -110,24 +110,24 @@ public class ChatServer {
         @Override
         public void run() {
             try {
-                //å¦‚æœæœ‰ä¸€ä¸ªåŠä»¥ä¸Šçš„å®¢æˆ·ç«¯çš„æ•°æ®å‡†å¤‡å°±ç»ª
+                //Èç¹ûÓĞÒ»¸ö¼°ÒÔÉÏµÄ¿Í»§¶ËµÄÊı¾İ×¼±¸¾ÍĞ÷
                 while (!Thread.currentThread().isInterrupted()) {
-                    //å½“æ³¨å†Œçš„äº‹ä»¶åˆ°è¾¾æ—¶ï¼Œæ–¹æ³•è¿”å›ï¼›å¦åˆ™,è¯¥æ–¹æ³•ä¼šä¸€ç›´é˜»å¡  
+                    //µ±×¢²áµÄÊÂ¼şµ½´ïÊ±£¬·½·¨·µ»Ø£»·ñÔò,¸Ã·½·¨»áÒ»Ö±×èÈû  
                     selector.select();
-                    //è·å–å½“å‰é€‰æ‹©å™¨ä¸­æ‰€æœ‰æ³¨å†Œçš„ç›‘å¬äº‹ä»¶
+                    //»ñÈ¡µ±Ç°Ñ¡ÔñÆ÷ÖĞËùÓĞ×¢²áµÄ¼àÌıÊÂ¼ş
                     for (Iterator<SelectionKey> it = selector.selectedKeys().iterator(); it.hasNext(); ) {
                         SelectionKey key = it.next();
-                        //åˆ é™¤å·²é€‰çš„key,ä»¥é˜²é‡å¤å¤„ç† 
+                        //É¾³ıÒÑÑ¡µÄkey,ÒÔ·ÀÖØ¸´´¦Àí 
                         it.remove();
-                        //å¦‚æœ"æ¥æ”¶"äº‹ä»¶å·²å°±ç»ª
+                        //Èç¹û"½ÓÊÕ"ÊÂ¼şÒÑ¾ÍĞ÷
                         if (key.isAcceptable()) {
-                            //äº¤ç”±æ¥æ”¶äº‹ä»¶çš„å¤„ç†å™¨å¤„ç†
+                            //½»ÓÉ½ÓÊÕÊÂ¼şµÄ´¦ÀíÆ÷´¦Àí
                             handleAcceptRequest();
                         } else if (key.isReadable()) {
-                            //å¦‚æœ"è¯»å–"äº‹ä»¶å·²å°±ç»ª
-                            //å–æ¶ˆå¯è¯»è§¦å‘æ ‡è®°ï¼Œæœ¬æ¬¡å¤„ç†å®Œåæ‰æ‰“å¼€è¯»å–äº‹ä»¶æ ‡è®°
+                            //Èç¹û"¶ÁÈ¡"ÊÂ¼şÒÑ¾ÍĞ÷
+                            //È¡Ïû¿É¶Á´¥·¢±ê¼Ç£¬±¾´Î´¦ÀíÍêºó²Å´ò¿ª¶ÁÈ¡ÊÂ¼ş±ê¼Ç
                             key.interestOps(key.interestOps() & (~SelectionKey.OP_READ));
-                            //äº¤ç”±è¯»å–äº‹ä»¶çš„å¤„ç†å™¨å¤„ç†
+                            //½»ÓÉ¶ÁÈ¡ÊÂ¼şµÄ´¦ÀíÆ÷´¦Àí
                             readPool.execute(new ReadEventHandler(key));
                         }
                     }
@@ -143,7 +143,7 @@ public class ChatServer {
     }
 
     /**
-     * å…³é—­æœåŠ¡å™¨
+     * ¹Ø±Õ·şÎñÆ÷
      */
     public void shutdownServer() {
         try {
@@ -158,23 +158,23 @@ public class ChatServer {
     }
 
     /**
-     * å¤„ç†å®¢æˆ·ç«¯çš„è¿æ¥è¯·æ±‚
+     * ´¦Àí¿Í»§¶ËµÄÁ¬½ÓÇëÇó
      */
     private void handleAcceptRequest() {
         try {
             SocketChannel client = serverSocketChannel.accept();
-            // æ¥æ”¶çš„å®¢æˆ·ç«¯ä¹Ÿè¦åˆ‡æ¢ä¸ºéé˜»å¡æ¨¡å¼
+            // ½ÓÊÕµÄ¿Í»§¶ËÒ²ÒªÇĞ»»Îª·Ç×èÈûÄ£Ê½
             client.configureBlocking(false);
-            // ç›‘æ§å®¢æˆ·ç«¯çš„è¯»æ“ä½œæ˜¯å¦å°±ç»ª
+            // ¼à¿Ø¿Í»§¶ËµÄ¶Á²Ù×÷ÊÇ·ñ¾ÍĞ÷
             client.register(selector, SelectionKey.OP_READ);
-            log.info("æœåŠ¡å™¨è¿æ¥å®¢æˆ·ç«¯:{}",client);
+            log.info("·şÎñÆ÷Á¬½Ó¿Í»§¶Ë:{}",client);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * å¤„äºçº¿ç¨‹æ± ä¸­çš„çº¿ç¨‹ä¼šéšç€çº¿ç¨‹æ± çš„shutdownæ–¹æ³•è€Œå…³é—­
+     * ´¦ÓÚÏß³Ì³ØÖĞµÄÏß³Ì»áËæ×ÅÏß³Ì³ØµÄshutdown·½·¨¶ø¹Ø±Õ
      */
     private class ReadEventHandler implements Runnable {
 
@@ -202,8 +202,8 @@ public class ChatServer {
                 if (size == -1) {
                     return;
                 }
-                log.info("è¯»å–å®Œæ¯•ï¼Œç»§ç»­ç›‘å¬");
-                //ç»§ç»­ç›‘å¬è¯»å–äº‹ä»¶
+                log.info("¶ÁÈ¡Íê±Ï£¬¼ÌĞø¼àÌı");
+                //¼ÌĞø¼àÌı¶ÁÈ¡ÊÂ¼ş
                 key.interestOps(key.interestOps() | SelectionKey.OP_READ);
                 key.selector().wakeup();
                 byte[] bytes = baos.toByteArray();
@@ -213,7 +213,7 @@ public class ChatServer {
                 try {
                     messageHandler.handle(message, selector, key, downloadTaskQueue, onlineUsers);
                 } catch (InterruptedException e) {
-                    log.error("æœåŠ¡å™¨çº¿ç¨‹è¢«ä¸­æ–­");
+                    log.error("·şÎñÆ÷Ïß³Ì±»ÖĞ¶Ï");
                     exceptionHandler.handle(client, message);
                     e.printStackTrace();
                 }
@@ -232,9 +232,9 @@ public class ChatServer {
         while (scanner.hasNext()) {
             String next = scanner.next();
             if (next.equalsIgnoreCase(QUIT)) {
-                System.out.println("æœåŠ¡å™¨å‡†å¤‡å…³é—­");
+                System.out.println("·şÎñÆ÷×¼±¸¹Ø±Õ");
                 chatServer.shutdownServer();
-                System.out.println("æœåŠ¡å™¨å·²å…³é—­");
+                System.out.println("·şÎñÆ÷ÒÑ¹Ø±Õ");
             }
         }
     }

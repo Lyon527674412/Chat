@@ -4,9 +4,9 @@ package cn.sinjinsong.common.enumeration;
  * Created by SinjinSong on 2017/5/23.
  */
 public enum ResponseType {
-    NORMAL(1,"娑堟伅"),
-    PROMPT(2,"鎻愮ず"),
-    FILE(3,"鏂囦欢");
+    NORMAL(1,"消息"),
+    PROMPT(2,"提示"),
+    FILE(3,"文件");
     
     private int code;
     private String desc;

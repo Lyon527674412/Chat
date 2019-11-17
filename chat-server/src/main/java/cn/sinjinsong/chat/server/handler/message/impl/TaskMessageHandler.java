@@ -17,8 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by SinjinSong on 2017/5/23.
- * ç”Ÿäº§è€…
- * æ³¨æ„æ‰€æœ‰çš„InterruptedExceptionï¼Œè¦ä¹ˆæŠ›ç»™ä¸Šå±‚ï¼Œè¦ä¹ˆè‡ªå·±å¤„ç†
+ * Éú²úÕß
+ * ×¢ÒâËùÓĞµÄInterruptedException£¬ÒªÃ´Å×¸øÉÏ²ã£¬ÒªÃ´×Ô¼º´¦Àí
  */
 @Component("MessageHandler.task")
 @Slf4j
@@ -30,7 +30,7 @@ public class TaskMessageHandler extends MessageHandler {
         Task task = new Task((SocketChannel) client.channel(), taskDescription.getType(), taskDescription.getDesc(), message);
         try {
             queue.put(task);
-            log.info("{}å·²æ”¾å…¥é˜»å¡é˜Ÿåˆ—",task.getReceiver().getRemoteAddress());
+            log.info("{}ÒÑ·ÅÈë×èÈû¶ÓÁĞ",task.getReceiver().getRemoteAddress());
         }catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,11 +4,11 @@ package cn.sinjinsong.common.enumeration;
  * Created by SinjinSong on 2017/5/23.
  */
 public enum MessageType {
-    LOGIN(1,"鐧诲綍"),
-    LOGOUT(2,"娉ㄩ攢"),
-    NORMAL(3,"鍗曡亰"),
-    BROADCAST(4,"缇ゅ彂"),
-    TASK(4,"浠诲姟");
+    LOGIN(1,"登录"),
+    LOGOUT(2,"注销"),
+    NORMAL(3,"单聊"),
+    BROADCAST(4,"群发"),
+    TASK(4,"任务");
     
     private int code;
     private String  desc;

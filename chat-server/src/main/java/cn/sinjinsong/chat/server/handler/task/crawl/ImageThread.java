@@ -25,7 +25,7 @@ public class ImageThread implements Callable<byte[]>{
         if (!manager.copyStream(url, baos)) {
             throw new IOException();
         }
-        log.info("ä¸‹è½½å›¾ç‰‡æˆåŠŸ");
+        log.info("ÏÂÔØÍ¼Æ¬³É¹¦");
         byte[] bytes = baos.toByteArray();
         baos.close();
         return bytes;

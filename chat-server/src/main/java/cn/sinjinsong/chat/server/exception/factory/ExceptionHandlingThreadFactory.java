@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadFactory;
  */
 
 /**
- * é…åˆå¼‚å¸¸å¤„ç†å™¨
+ * ÅäºÏÒì³£´¦ÀíÆ÷
  */
 public class ExceptionHandlingThreadFactory implements ThreadFactory {
     private Thread.UncaughtExceptionHandler handler;
@@ -18,7 +18,7 @@ public class ExceptionHandlingThreadFactory implements ThreadFactory {
 	@Override
 	public Thread newThread(Runnable r) {
 		Thread thread = new Thread(r);
-		//åœ¨è¿™é‡Œè®¾ç½®å¼‚å¸¸å¤„ç†å™¨
+		//ÔÚÕâÀïÉèÖÃÒì³£´¦ÀíÆ÷
 		thread.setUncaughtExceptionHandler(handler);
 		return thread;
 	}

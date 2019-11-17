@@ -45,7 +45,7 @@ public class ChatClient extends Frame {
     }
 
     /**
-     * åˆå§‹åŒ–çª—ä½“
+     * ³õÊ¼»¯´°Ìå
      *
      * @param x
      * @param y
@@ -78,20 +78,20 @@ public class ChatClient extends Frame {
     }
 
     /**
-     * åˆå§‹åŒ–ç½‘ç»œæ¨¡å—
+     * ³õÊ¼»¯ÍøÂçÄ£¿é
      */
     private void initNetWork() {
         try {
             selector = Selector.open();
             clientChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9000));
-            //è®¾ç½®å®¢æˆ·ç«¯ä¸ºéé˜»å¡æ¨¡å¼
+            //ÉèÖÃ¿Í»§¶ËÎª·Ç×èÈûÄ£Ê½
             clientChannel.configureBlocking(false);
             clientChannel.register(selector, SelectionKey.OP_READ);
             buf = ByteBuffer.allocate(DEFAULT_BUFFER_SIZE);
             login();
             isConnected = true;
         } catch (ConnectException e) {
-            JOptionPane.showMessageDialog(this, "è¿æ¥æœåŠ¡å™¨å¤±è´¥");
+            JOptionPane.showMessageDialog(this, "Á¬½Ó·şÎñÆ÷Ê§°Ü");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,8 +103,8 @@ public class ChatClient extends Frame {
     }
 
     private void login() {
-        String username = JOptionPane.showInputDialog("è¯·è¾“å…¥ç”¨æˆ·å");
-        String password = JOptionPane.showInputDialog("è¯·è¾“å…¥å¯†ç ");
+        String username = JOptionPane.showInputDialog("ÇëÊäÈëÓÃ»§Ãû");
+        String password = JOptionPane.showInputDialog("ÇëÊäÈëÃÜÂë");
         Message message = new Message(
                 MessageHeader.builder()
                         .type(MessageType.LOGIN)
@@ -126,7 +126,7 @@ public class ChatClient extends Frame {
                 return;
             }
             listener.shutdown();
-            //å¦‚æœå‘é€æ¶ˆæ¯åé©¬ä¸Šæ–­å¼€è¿æ¥ï¼Œé‚£ä¹ˆæ¶ˆæ¯å¯èƒ½æ— æ³•é€è¾¾
+            //Èç¹û·¢ËÍÏûÏ¢ºóÂíÉÏ¶Ï¿ªÁ¬½Ó£¬ÄÇÃ´ÏûÏ¢¿ÉÄÜÎŞ·¨ËÍ´ï
             Thread.sleep(10);
             clientChannel.socket().close();
             clientChannel.close();
@@ -141,7 +141,7 @@ public class ChatClient extends Frame {
         if (!isLogin) {
             return;
         }
-        System.out.println("å®¢æˆ·ç«¯å‘é€ä¸‹çº¿è¯·æ±‚");
+        System.out.println("¿Í»§¶Ë·¢ËÍÏÂÏßÇëÇó");
         Message message = new Message(
                 MessageHeader.builder()
                         .type(MessageType.LOGOUT)
@@ -156,18 +156,18 @@ public class ChatClient extends Frame {
     }
 
     /**
-     * å‘é€ä¿¡æ¯ï¼Œç›‘å¬åœ¨å›è½¦é”®ä¸Š
+     * ·¢ËÍĞÅÏ¢£¬¼àÌıÔÚ»Ø³µ¼üÉÏ
      *
      * @param content
      */
     public void send(String content) {
         if (!isLogin) {
-            JOptionPane.showMessageDialog(null, "å°šæœªç™»å½•");
+            JOptionPane.showMessageDialog(null, "ÉĞÎ´µÇÂ¼");
             return;
         }
         try {
             Message message;
-            //æ™®é€šæ¨¡å¼
+            //ÆÕÍ¨Ä£Ê½
             if (content.startsWith("@")) {
                 String[] slices = content.split(":");
                 String receiver = slices[0].substring(1);
@@ -182,7 +182,7 @@ public class ChatClient extends Frame {
                 String info = content.substring(content.indexOf('.') + 1);
                 int split = info.indexOf(':');
                 TaskDescription taskDescription = new TaskDescription(TaskType.valueOf(info.substring(0,split).toUpperCase()), info.substring(split+1));
-                //å¤„ç†ä¸åŒçš„Taskç±»å‹
+                //´¦Àí²»Í¬µÄTaskÀàĞÍ
                 message = new Message(
                         MessageHeader.builder()
                                 .type(MessageType.TASK)
@@ -190,7 +190,7 @@ public class ChatClient extends Frame {
                                 .timestamp(System.currentTimeMillis())
                                 .build(), ProtoStuffUtil.serialize(taskDescription));
             } else {
-                //å¹¿æ’­æ¨¡å¼
+                //¹ã²¥Ä£Ê½
                 message = new Message(
                         MessageHeader.builder()
                                 .type(MessageType.BROADCAST)
@@ -206,7 +206,7 @@ public class ChatClient extends Frame {
     }
 
     /**
-     * ç”¨äºæ¥æ”¶ä¿¡æ¯çš„çº¿ç¨‹
+     * ÓÃÓÚ½ÓÊÕĞÅÏ¢µÄÏß³Ì
      */
     private class ReceiverHandler implements Runnable {
         private boolean connected = true;
@@ -239,7 +239,7 @@ public class ChatClient extends Frame {
                     }
                 }
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "æœåŠ¡å™¨å…³é—­ï¼Œè¯·é‡æ–°å°è¯•è¿æ¥");
+                JOptionPane.showMessageDialog(null, "·şÎñÆ÷¹Ø±Õ£¬ÇëÖØĞÂ³¢ÊÔÁ¬½Ó");
                 isLogin = false;
             }
         }
@@ -253,9 +253,9 @@ public class ChatClient extends Frame {
                         ResponseCode code = ResponseCode.fromCode(header.getResponseCode());
                         if (code == ResponseCode.LOGIN_SUCCESS) {
                             isLogin = true;
-                            System.out.println("ç™»å½•æˆåŠŸ");
+                            System.out.println("µÇÂ¼³É¹¦");
                         } else if (code == ResponseCode.LOGOUT_SUCCESS) {
-                            System.out.println("ä¸‹çº¿æˆåŠŸ");
+                            System.out.println("ÏÂÏß³É¹¦");
                             break;
                         }
                     }
@@ -269,12 +269,12 @@ public class ChatClient extends Frame {
                     break;
                 case FILE:
                     try {
-                        String path = JOptionPane.showInputDialog("è¯·è¾“å…¥ä¿å­˜çš„æ–‡ä»¶è·¯å¾„");
+                        String path = JOptionPane.showInputDialog("ÇëÊäÈë±£´æµÄÎÄ¼şÂ·¾¶");
                         byte[] buf = response.getBody();
                         FileUtil.save(path, buf);
                         if(path.endsWith("jpg")){
-                            //æ˜¾ç¤ºè¯¥å›¾ç‰‡
-                            new PictureDialog(ChatClient.this, "å›¾ç‰‡", false, path);
+                            //ÏÔÊ¾¸ÃÍ¼Æ¬
+                            new PictureDialog(ChatClient.this, "Í¼Æ¬", false, path);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

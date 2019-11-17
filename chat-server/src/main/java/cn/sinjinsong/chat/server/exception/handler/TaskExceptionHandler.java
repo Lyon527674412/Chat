@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
  */
 
 /**
- * UncaughtExceptionHandler寮傚父澶勭悊鍣ㄥ彲浠ュ鐞咵xecutorService閫氳繃execute鏂规硶鎻愪氦鐨勭嚎绋嬩腑鎶涘嚭鐨凴untimeException
+ * UncaughtExceptionHandler异常处理器可以处理ExecutorService通过execute方法提交的线程中抛出的RuntimeException
  */
 @Component("taskExceptionHandler")
 @Slf4j
@@ -38,7 +38,7 @@ public class TaskExceptionHandler implements Thread.UncaughtExceptionHandler{
                                         .sender(message.getHeader().getSender())
                                         .timestamp(message.getHeader().getTimestamp()).build(),
                                 PromptMsgProperty.TASK_FAILURE.getBytes(PromptMsgProperty.charset)));
-                log.info("杩斿洖浠诲姟鎵ц澶辫触淇℃伅");
+                log.info("返回任务执行失败信息");
                 task.getReceiver().write(ByteBuffer.wrap(response));
             }
         } catch (IOException e1) {
